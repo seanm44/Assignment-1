@@ -1,22 +1,12 @@
-
-LOGFILE = "sample_auth_small.log"  # change filename if needed
-
 import json
 from collections import defaultdict
 from datetime import datetime
+from datetime import timedelta
+from collections import defaultdict
 
-LOGFILE = "sample_auth_small.log"
+LOGFILE = "CA1_project.log"
 
 def parse_auth_line(line):
-    """
-    Parse an auth log line and return (timestamp, ip, event_type)
-    Example auth line:
-    Mar 10 13:58:01 host1 sshd[1023]: Failed password for invalid user admin from 203.0.113.45 port 52344 ssh2
-    We will:
-     - parse timestamp (assume year 2025)
-     - extract IP (token after 'from')
-     - event_type: 'failed' if 'Failed password', 'accepted' if 'Accepted password', else 'other'
-    """
     parts = line.split()
     # timestamp: first 3 tokens 'Mar 10 13:58:01'
     ts_str = " ".join(parts[0:3])
@@ -42,16 +32,12 @@ if __name__ == "__main__":
     per_ip_timestamps = defaultdict(list)
     with open(LOGFILE) as f:
         for line in f:
-            ts, ip, event = parse_auth_line(line)
+            ts, ip, event = parse_auth_line(line.strip())
             if ts and ip and event == "failed":   # checks that ts and ip are not null, and that event=="failed"
                 per_ip_timestamps[ip].append(ts)
-    # quick print
-    for ip, times in per_ip_timestamps.items():
-        print(ip, len(times))
-
 
 count = 0
-with open ("sample_auth_small.log", "r") as f:
+with open ("CA1_project.log", "r") as f:
     for line in f:
         count += 1
 print("Lines read:", count)
@@ -63,39 +49,36 @@ firstTen = 0
 
 ## This is the main block that will run first. 
 ## It will call any functions from above that we might need.
-if __name__ == "__main__":
-    with open(LOGFILE, "r") as f:
-        for line in f:
-            ip = parse_auth_line(line.strip())
-            if ip:
-                unique_ips.add(ip)
+
+with open(LOGFILE, "r") as f:
+    for line in f:
+        ts, ip, ext = parse_auth_line(line.strip())
+        if ip:
+            unique_ips.add(ip)
 
 for ip in unique_ips:
     count_uni += 1
 
 print("Unique IPs:", count_uni)
 
-            
-from collections import defaultdict
 
 counts = defaultdict(int)           # Create a dictionary to keep track of IPs
 
-with open("sample_auth_small.log") as f:
+with open("CA1_project.log") as f:
     for line in f:
         if "Failed password" in line:
             # extract ip
-            ip = parse_auth_line(line)
+            ts, ip, ext = parse_auth_line(line.strip())
             if ip:
                 counts[ip] += 1
 
 for ip, count in counts.items():
     print(f"Failed login attempt(s) from {ip}" + f" There was {count}" + " login attempt(s)")
 
-from datetime import timedelta
 
 incidents = []
 window = timedelta(minutes=10)
-for ip, times in parse_auth_line.items():
+for ip, times in per_ip_timestamps.items():
     times.sort()
     n = len(times)
     i = 0
@@ -115,3 +98,7 @@ for ip, times in parse_auth_line.items():
             i = j + 1
         else:
             i += 1
+print("Possible brute force attacks")
+
+for output in incidents:
+    print(output)
