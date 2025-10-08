@@ -2,7 +2,6 @@ import json
 from collections import defaultdict
 from datetime import datetime
 from datetime import timedelta
-from collections import defaultdict
 
 LOGFILE = "CA1_project.log"
 
@@ -45,7 +44,6 @@ print("Lines read:", count)
 # Convert to a set to remove duplicates
 unique_ips = set()
 count_uni = 0
-firstTen = 0
 
 ## This is the main block that will run first. 
 ## It will call any functions from above that we might need.
