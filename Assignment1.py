@@ -56,9 +56,6 @@ print("Lines read:", count)
 unique_ips = set()
 count_uni = 0
 
-## This is the main block that will run first. 
-## It will call any functions from above that we might need.
-
 with open(LOGFILE, "r") as f:
     for line in f:
         ts, ip, ext = parse_auth_line(line.strip())
@@ -110,7 +107,7 @@ print("\nPossible brute force attacks:\n")
 for output in incidents:
     print(output)
 
-top5 = sorted(counts, key=counts.get, reverse = True) [0:5] # This sorts the ips and uses the 5 IPs with the most failed attempts 
+top5 = sorted(counts, key=counts.get, reverse = True) [0:5] # This sorts the ips and uses the 5 IPs with the most failed login attempts 
 topcount = [counts[ip] for ip in top5] #This keeps count of the failed login attempts
 plt.figure(figsize=(8,4)) #Sets the size of the bar chart
 plt.bar(top5, topcount, color = "blue") #Creates the bar chart and adds the color blue
