@@ -16,6 +16,9 @@ Failed login attempt(s) from 192.0.2.55 There was 91 login attempt(s)
 Failed login attempt(s) from 192.0.2.13 There was 84 login attempt(s)
 Failed login attempt(s) from 198.51.100.22 There was 76 login attempt(s)
 Failed login attempt(s) from 198.51.100.99 There was 104 login attempt(s)
+
+Possible brute force attacks
+
 {'IP': '198.51.100.66', 'count': 8, 'First attempt': '2025-03-10T13:53:01', 'Last attempt': '2025-03-10T14:02:04'}
 {'IP': '198.51.100.66', 'count': 5, 'First attempt': '2025-03-10T14:14:56', 'Last attempt': '2025-03-10T14:19:56'}
 {'IP': '198.51.100.66', 'count': 6, 'First attempt': '2025-03-10T14:43:59', 'Last attempt': '2025-03-10T14:53:23'}
